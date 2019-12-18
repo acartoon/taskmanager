@@ -1,6 +1,6 @@
 import {getRandomDate, getRandomInteger, getRandomElements, createRepeatDays} from "./utils";
 
-const COUNT_TASKS = 16;
+const COUNT_TASKS = 0;
 const description = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
 const days = [`Mo`, `Tu`, `We`, `Th`, `Fr`, `Sa`, `Su`];
 const tags = new Set([
