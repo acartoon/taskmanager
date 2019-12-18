@@ -1,8 +1,6 @@
-
-
-// export function render(container, template, type = `beforeend`) {
-//   container.insertAdjacentHTML(type, template);
-// }
+export const counter = (func, tasks) => {
+  return tasks.reduce((total, x) => (func(x) ? total + 1 : total), 0);
+}
 export const Position = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
