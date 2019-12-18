@@ -1,21 +1,10 @@
-import {createElement} from '../utils';
 
-export default class Menu {
+import AbstractComponent from './abstract-component';
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
+export default class Menu extends AbstractComponent {
+  constructor() {
+    super();
   }
-
-  removeElement() {
-    if (!this._element) {
-      this._element = null;
-    }
-    return this._element;
-  }
-  
   getTemplate() {
     return `<section class="control__btn-wrap">
       <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">

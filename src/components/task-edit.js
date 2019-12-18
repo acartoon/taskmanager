@@ -1,29 +1,25 @@
-import {createElement} from '../utils';
+import TaskBaseComponent from './task-base-component';
 
-export default class TaskEdit {
-  constructor({description, dueDate, repeatingDays, tags, color, isArchive, isFavorite}) {
-    this._description = description;
-    this._dueDate = new Date(dueDate);
-    this._tags = tags;
-    this._color = color;
-    this._repeatingDays = repeatingDays;
-    this._isArchive = isArchive;
-    this._isFavorite = isFavorite;
-    this._element = null;
+export default class TaskEdit extends TaskBaseComponent {
+  constructor(params, closeCard, onEscKeyDown) {
+    super(params);
+    this._closeCard = closeCard;
+    this._onEscKeyDown = onEscKeyDown;
+
+    this._onBtnClick();
+    this._onEscKeyDownMain()
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-    return this._element;
+  
+  _onBtnClick() {
+    const submitBtn = this.getElement().querySelector('.card__save');
+    submitBtn.addEventListener('click', (evt) => this._closeCard(evt));
+    submitBtn.addEventListener('submit', (evt) => this._closeCard(evt));
   }
-
-  removeElement() {
-    if (!this._element) {
-      this._element = null;
-    }
-    return this._element;
+  
+  _onEscKeyDownMain() {
+    const descpriptionTask = this.getElement().querySelector('.card__text');
+    descpriptionTask.addEventListener('focus', () => document.removeEventListener(`keydown`, this._onEscKeyDown));
+    descpriptionTask.addEventListener('blur', () => document.addEventListener(`keydown`, this._onEscKeyDown));
   }
 
   getTemplate() {
@@ -188,6 +184,6 @@ export default class TaskEdit {
       </div>
     </div>
   </form>
-  </article>`.trim();
+  </article>`;
   }
 }

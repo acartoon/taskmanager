@@ -1,10 +1,16 @@
 import {createElement} from '../utils';
-import AbstractComponent from './abstract-component';
-
-export default class BtnLoadMore extends AbstractComponent{
+export default class AbstractComponent {
   constructor() {
-    super();
+    this._element = null;
+    if (new.target === AbstractComponent) {
+        throw new Error(`Can't instantiate AbstractComponent, only concrete one.`);
+    }
   }
+
+  getTemplate() {
+    throw new Error(`Abstract method not implemented: getTemplate`);
+  }
+
 
   getElement() {
     if (!this._element) {
@@ -13,14 +19,11 @@ export default class BtnLoadMore extends AbstractComponent{
     return this._element;
   }
 
+  
   removeElement() {
     if (!this._element) {
       this._element = null;
     }
     return this._element;
-  }
-
-  getTemplate() {
-    return `<button class="load-more" type="button">load more</button>`
   }
 }
