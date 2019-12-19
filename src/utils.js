@@ -1,16 +1,23 @@
 export const counter = (func, tasks) => {
   return tasks.reduce((total, x) => (func(x) ? total + 1 : total), 0);
 }
-export const Position = {
+
+export const SORTING = {
+  UP: 'date-up',
+  DOWN: 'date-down',
+  DEFOULT: 'default',
+}
+
+export const POSTITION = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
 };
-export const render = (container, element, place = Position.BEFOREEND) => {
+export const render = (container, element, place = POSTITION.BEFOREEND) => {
   switch (place) {
-    case Position.AFTERBEGIN:
+    case POSTITION.AFTERBEGIN:
       container.prepend(element);
       break;
-    case Position.BEFOREEND:
+    case POSTITION.BEFOREEND:
       container.append(element);
       break;
   }
