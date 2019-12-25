@@ -20,8 +20,8 @@ export default class Task extends TaskBaseComponent{
           <button type="button" class="card__btn card__btn--edit">
             edit
           </button>
-          ${this._isArchive ? `<button type="button" class="card__btn card__btn--archive">archive</button>` : ``}
-          ${this._isFavorite ? `<button type="button" class="card__btn card__btn--favorites card__btn--disabled">favorites</button>` : ``}
+          <button type="button" class="card__btn card__btn--archive ${this._isArchive ? ``: `card__btn--disabled`}">archive</button>
+          <button type="button" class="card__btn card__btn--favorites ${this._isFavorite ? ``: `card__btn--disabled`}">favorites</button>
         </div>
         <div class="card__color-bar">
           <svg class="card__color-bar-wave" width="100%" height="10">
@@ -36,7 +36,7 @@ export default class Task extends TaskBaseComponent{
             <div class="card__dates">
               <div class="card__date-deadline">
                 <p class="card__input-deadline-wrap">
-                  <span class="card__date">${new Date(this._dueDate).toDateString()}</span>
+                  <span class="card__date">${this._dueDate ? new Date(this._dueDate).toDateString() : ``}</span>
                   <span class="card__time">11:15 PM</span>
                 </p>
               </div>

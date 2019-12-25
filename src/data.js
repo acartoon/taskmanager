@@ -1,8 +1,9 @@
-import {getRandomDate, getRandomInteger, getRandomElements, createRepeatDays} from "./utils";
+import {getRandomDate, getRandomInteger, getRandomElements, createRepeatDays, getRandomString} from "./utils";
 
 const COUNT_TASKS = 16;
 const description = [`Изучить теорию`, `Сделать домашку`, `Пройти интенсив на соточку`];
 const days = [`Mo`, `Tu`, `We`, `Th`, `Fr`, `Sa`, `Su`];
+
 const tags = new Set([
   `homework`,
   `theory`,
@@ -11,7 +12,7 @@ const tags = new Set([
   `keks`,
 ]);
 
-const colors = new Set([
+export const COLORS = new Set([
   `black`,
   `yellow`,
   `blue`,
@@ -20,15 +21,18 @@ const colors = new Set([
 ]);
 
 const createTask = () => {
-  return {
+  const task = {
+    id: getRandomString(3),
     description: description[getRandomInteger(description.length - 1, 0)],
-    dueDate: getRandomDate(),
-    repeatingDays: createRepeatDays(days),
-    tags: getRandomElements(Array.from(tags), getRandomInteger(3, 3), getRandomInteger),
-    color: Array.from(colors)[getRandomInteger(Array.from(colors).length - 1, 0)],
+    dueDate: Boolean(Math.round(Math.random())) ? getRandomDate() : false,
+    repeatingDays: null,
+    tags: new Set(getRandomElements(Array.from(tags), getRandomInteger(3, 3), getRandomInteger)),
+    color: Array.from(COLORS)[getRandomInteger(Array.from(COLORS).length - 1, 0)],
     isFavorite: Boolean(Math.round(Math.random())),
     isArchive: Boolean(Math.round(Math.random())),
-  }
+  };
+  task['repeatingDays'] = task['dueDate'] ? createRepeatDays(days, false) : createRepeatDays(days);
+  return task;
 }
 
 export const tasks = new Array(COUNT_TASKS).fill('').map((task) => createTask());

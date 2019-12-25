@@ -10,7 +10,8 @@ export const SORTING = {
 
 export const POSTITION = {
   AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
+  BEFOREEND: `beforeend`,
+  AFTER: `after`,
 };
 export const render = (container, element, place = POSTITION.BEFOREEND) => {
   switch (place) {
@@ -20,6 +21,15 @@ export const render = (container, element, place = POSTITION.BEFOREEND) => {
     case POSTITION.BEFOREEND:
       container.append(element);
       break;
+    case POSTITION.AFTER:
+      container.after(element);
+      break;
+  }
+};
+
+export const unrender = (element) => {
+  if (element) {
+    element.remove();
   }
 };
 
@@ -51,9 +61,23 @@ export function getRandomDate() {
 }
 
 
-export const createRepeatDays = (array) => {
+export const createRepeatDays = (array, repeat = true) => {
   return array.reduce((result, current) => {
-    result[current] = Boolean(Math.round(Math.random()));
+    result[current] = repeat ? Boolean(Math.round(Math.random())) : false;
     return result;
   }, {});
+}
+
+export const removeElement = (element) => {
+  unrender(element.getElement());
+  element.removeElement();
+}
+
+export function getRandomString(length) {
+  const characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`;
+  let result = ``;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
 }

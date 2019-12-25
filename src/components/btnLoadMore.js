@@ -2,8 +2,16 @@ import {createElement} from '../utils';
 import AbstractComponent from './abstract-component';
 
 export default class BtnLoadMore extends AbstractComponent{
-  constructor() {
+  constructor(onClick) {
     super();
+    this._onClickMain = onClick;
+    this._onClick()
+  }
+
+  _onClick() {
+    this.getElement().addEventListener(`click`, () => {
+      this._onClickMain();
+    });
   }
 
   getElement() {
