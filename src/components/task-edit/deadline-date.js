@@ -1,9 +1,26 @@
 import AbstractComponent from "../abstract-component";
+import flatpickr from "flatpickr";
+import moment from "moment";
 
 export default class DeadlineDate extends AbstractComponent{
 constructor(dueDate) {
   super();
   this._dueDate = dueDate;
+  this._init();
+}
+
+_init() {
+  const calendar = this.getElement().querySelector(`.card__date`);
+  flatpickr(calendar, {
+    defaultDate: this._dueDate,
+    altInput: true,
+    allowInput: true,
+    locale: {
+      firstDayOfWeek: 1
+    },
+    dateFormat: `d F Y`,
+    altFormat: `d F`
+  });
 }
 
 getTemplate() {
@@ -14,9 +31,9 @@ getTemplate() {
         type="text"
         placeholder=""
         name="date"
-        value="${this._dueDate === false ? `` : new Date(this._dueDate).toDateString()}"
-      />
-    </label>
-  </fieldset>`;
-  }
-}
+        value=""
+        />
+        </label>
+        </fieldset>`;
+      }
+    }
