@@ -29,6 +29,7 @@ export default class TaskController {
       id: this._taskData.id,
       description: formData.get(`text`),
       dueDate: new Date(formData.get(`date`)),
+      dueDate: formData.get(`date`),
       repeatingDays: formData.getAll(`repeat`).reduce((acc, it) => {
         acc[it] = true;
         return acc;
@@ -46,6 +47,7 @@ export default class TaskController {
       isFavorite: !this._taskEdit.getElement().querySelector(`.card__btn--favorites`).classList.contains(`card__btn--disabled`),
       isArchive: !this._taskEdit.getElement().querySelector(`.card__btn--archive`).classList.contains(`card__btn--disabled`)
     }
+    console.log(entry.dueDate)
     this._taskData = entry;
     this._onDataChangeMain(this._taskData);
   }

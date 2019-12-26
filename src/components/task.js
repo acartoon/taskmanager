@@ -1,4 +1,5 @@
 import TaskBaseComponent from './task-base-component';
+import moment from 'moment';
 
 export default class Task extends TaskBaseComponent{
   constructor(params, handler) {
@@ -15,7 +16,7 @@ export default class Task extends TaskBaseComponent{
   getTemplate() {
     return `<article class="card card--${this._color} ${Object.keys(this._repeatingDays).some((day) => this._repeatingDays[day]) ? `card--repeat` : ``}">
     <div class="card__form">
-      <div class="card__inner">
+      <div class="card__inner"s>
         <div class="card__control">
           <button type="button" class="card__btn card__btn--edit">
             edit
@@ -36,7 +37,7 @@ export default class Task extends TaskBaseComponent{
             <div class="card__dates">
               <div class="card__date-deadline">
                 <p class="card__input-deadline-wrap">
-                  <span class="card__date">${this._dueDate ? new Date(this._dueDate).toDateString() : ``}</span>
+                  <span class="card__date">${this._dueDate ? moment(this._dueDate).format(`DD MMMM`): ``}</span>
                   <span class="card__time">11:15 PM</span>
                 </p>
               </div>

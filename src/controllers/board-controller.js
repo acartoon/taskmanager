@@ -59,9 +59,14 @@ export default class BoardController {
     }
   }
 
-  onDataChange() {
-    //принмает новые данные из taslcontroller
-    //и обновляет это в моках
+  onDataChange(newTaskData) {
+    this._tasksData = this._tasksData.map((taskData) => {
+      if(taskData.id === newTaskData.id) {
+        return newTaskData;
+      }
+      return taskData;
+    });
+    // console.log(this._tasksData)
   }
 
   onChangeView() {

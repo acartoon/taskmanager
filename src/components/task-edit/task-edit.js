@@ -7,6 +7,7 @@ import CardColor from './card-color';
 import {COLORS} from '../../data';
 import DeadlineDate from './deadline-date';
 import template from './template';
+import css from '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 export default class TaskEdit extends TaskBaseComponent {
   constructor(params, closeCard, onEscKeyDown) {

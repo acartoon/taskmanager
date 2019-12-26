@@ -1,8 +1,6 @@
 import Menu from "./components/menu";
 import Search from "./components/search";
 import Filter from "./components/filter";
-
-
 import NoTasks from "./components/no-tasks";
 import {render, createNode} from "./utils";
 import {tasks} from "./data"
