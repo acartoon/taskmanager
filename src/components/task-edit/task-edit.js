@@ -10,9 +10,10 @@ import template from './template';
 import css from '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 export default class TaskEdit extends TaskBaseComponent {
-  constructor(params, closeCard, onEscKeyDown) {
+  constructor(params, closeCard, removeTask, onEscKeyDown) {
     super(params);
     this._closeCard = closeCard;
+    this._removeTaskMain = removeTask;
     this._onEscKeyDown = onEscKeyDown;
     this._newHashtag = new NewHashtag(this.onEnterKeyDown.bind(this));
     this._repeat = Object.keys(this._repeatingDays).some((day) => this._repeatingDays[day] === true) ? true : false;
@@ -36,6 +37,7 @@ export default class TaskEdit extends TaskBaseComponent {
     const btnFavorites = this.getElement().querySelector(`.card__btn--favorites`);
     this._toggleStatusTask(btnArchive);
     this._toggleStatusTask(btnFavorites);
+    this._removeTask();
   }
 
   _dates() {
@@ -115,6 +117,13 @@ export default class TaskEdit extends TaskBaseComponent {
         btn.classList.add(`card__btn--disabled`);
       }
     }) 
+  }
+
+  _removeTask() {
+    const btnRemove = this.getElement().querySelector(`.card__delete`);
+    btnRemove.addEventListener(`click`, () => {
+      this._removeTaskMain();
+    });
   }
 
   onEnterKeyDown(value) {

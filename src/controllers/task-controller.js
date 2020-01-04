@@ -1,22 +1,27 @@
 import Task from "../components/task";
 import TaskEdit from "../components/task-edit/task-edit";
-import { render} from "../utils";
+import { render, POSTITION, ACTION, TASKMODE} from "../utils";
 
 export default class TaskController {
-  constructor(container, tasksData, onDataChange, onChangeView) {
+  constructor(container, tasksData, onDataChange, onChangeView, MODE) {
     this._container = container;
     this._onDataChangeMain = onDataChange;
     this._onChangeView = onChangeView
     this._taskData = tasksData;
     this.onEscKeyDown = this.onEscKeyDown.bind(this);
+    this._MODE = MODE;
     
     this._task = null
-    this._taskEdit = new TaskEdit(this._taskData, this.closeCard.bind(this), this.onEscKeyDown);
-    
+    this._taskEdit = new TaskEdit(this._taskData, this.closeCard.bind(this), this.removeTask.bind(this), this.onEscKeyDown);
   }
+  
   init() {
     this._renderTask(this._taskData);
-    render(this._container, this._task.getElement());
+    if(this._MODE === TASKMODE.CREARE) {
+      render(this._container, this._taskEdit.getElement(), POSTITION.AFTERBEGIN);
+    } else {
+      render(this._container, this._task.getElement());
+    }
   }
 
   _renderTask(taskData) {
@@ -47,9 +52,12 @@ export default class TaskController {
       isFavorite: !this._taskEdit.getElement().querySelector(`.card__btn--favorites`).classList.contains(`card__btn--disabled`),
       isArchive: !this._taskEdit.getElement().querySelector(`.card__btn--archive`).classList.contains(`card__btn--disabled`)
     }
-    console.log(entry.dueDate)
+
+    if(!entry.color) {
+      console.log(`Ошибка, нет цвета!`)
+    }
     this._taskData = entry;
-    this._onDataChangeMain(this._taskData);
+    this._onDataChangeMain(this._taskData, ACTION.CHANGE);
   }
 
   onClick() {
@@ -63,6 +71,10 @@ export default class TaskController {
     document.removeEventListener(`keydown`, this.onEscKeyDown);
     this.onDataChange();
     this.chacngeTaskForm();
+  }
+
+  removeTask() {
+    this._onDataChangeMain(this._taskData, ACTION.REMOVE);
   }
 
   onEscKeyDown(evt) {

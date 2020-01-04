@@ -9,12 +9,13 @@ export default class Task extends TaskBaseComponent{
   }
 
   _onBtnClick() {
+
     const btn = this.getElement().querySelector('.card__btn--edit');
     btn.addEventListener('click', this._handler);
   }
 
   getTemplate() {
-    return `<article class="card card--${this._color} ${Object.keys(this._repeatingDays).some((day) => this._repeatingDays[day]) ? `card--repeat` : ``}">
+    return `<article class="card ${this._dueDate && moment(this._dueDate).isBefore(moment(new Date()), `day`) ? `card--deadline ` : ``}card--${this._color} ${Object.keys(this._repeatingDays).some((day) => this._repeatingDays[day]) ? `card--repeat` : ``}">
     <div class="card__form">
       <div class="card__inner"s>
         <div class="card__control">
@@ -37,7 +38,7 @@ export default class Task extends TaskBaseComponent{
             <div class="card__dates">
               <div class="card__date-deadline">
                 <p class="card__input-deadline-wrap">
-                  <span class="card__date">${this._dueDate ? moment(this._dueDate).format(`DD MMMM`): ``}</span>
+                  <span class="card__date">${this._dueDate ? moment(this._dueDate).format(`DD MMMM YYYY`): ``}</span>
                   <span class="card__time">11:15 PM</span>
                 </p>
               </div>

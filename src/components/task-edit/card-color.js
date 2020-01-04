@@ -21,7 +21,7 @@ export default class CardColor extends AbstractComponent {
     id="color-${this._color}-4"
     class="card__color-input card__color-input--${this._color} visually-hidden"
     name="color"
-    value="${this._color} " ${this._checked ? `checked`: ``}
+    value="${this._color}" ${this._checked ? `checked`: ``} required
   />
   <label
     for="color-${this._color}-4"

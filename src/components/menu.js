@@ -2,9 +2,21 @@
 import AbstractComponent from './abstract-component';
 
 export default class Menu extends AbstractComponent {
-  constructor() {
+  constructor(onClick) {
     super();
+    this._init();
+    this._onClick = onClick;
   }
+
+  _init() {
+    this.getElement().addEventListener(`click`, (evt) => {
+      if(evt.target.tagName === `LABEL`) {
+        const value = evt.target.getAttribute(`for`);
+        this._onClick(value);
+      }
+    });
+  }
+
   getTemplate() {
     return `<section class="control__btn-wrap">
       <input type="radio" name="control" id="control__new-task" class="control__input visually-hidden">
