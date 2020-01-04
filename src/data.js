@@ -34,5 +34,4 @@ const createTask = () => {
   task['repeatingDays'] = task['dueDate'] ? createRepeatDays(days, false) : createRepeatDays(days);
   return task;
 }
-
 export const tasks = new Array(COUNT_TASKS).fill('').map((task) => createTask());

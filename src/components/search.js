@@ -4,21 +4,22 @@ import AbstractComponent from './abstract-component';
 export default class Search extends AbstractComponent{
   constructor(action) {
     super();
-    this._action = action
+    this._action = action;
+    this._input = this.getElement().querySelector(`.search__input`);
     this._onClick();
   }
 
   _onClick() {
-    const input = this.getElement().querySelector(`.search__input`);
-    input.addEventListener(`keydown`, (evt) => {
+    this._input.addEventListener(`keydown`, (evt) => {
       if (evt.code === `Enter`) {
-        const value = input.value;
-        this._action();
-        console.log(value)
+        const value = this._input.value;
+        this._action(value);
       }
-      
     })
-    this._action
+  }
+
+  clear() {
+    this._input.value = ``;
   }
   getTemplate() {
     return `<section class="main__search search container">

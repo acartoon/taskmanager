@@ -2,11 +2,28 @@ export const counter = (func, tasks) => {
   return tasks.reduce((total, x) => (func(x) ? total + 1 : total), 0);
 }
 
+export const SEARCHTAGS = {
+  DATE: `D`,
+  HASHTAGS: `#`
+}
+
+export const ACTION = {
+  CREATE: `create`,
+  CHANGE: `change`,
+  REMOVE: `remove`
+}
+
+export const TASKMODE = {
+  DEFAULT: `default`,
+  CREARE: `create`,
+}
+
 export const SORTING = {
   UP: 'date-up',
   DOWN: 'date-down',
   DEFOULT: 'default',
 }
+
 
 export const POSTITION = {
   AFTERBEGIN: `afterbegin`,
